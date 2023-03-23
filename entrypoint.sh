@@ -1,18 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
-npm config set registry https://registry.npm.taobao.org 
+MD_FILENAME=slides.md
 
-if [ -f /slidev/slides.md ]; then
-    if [ -d /slidev/node_modules ]; then
-        npm update
-    else
-        npm install
-    fi
-    echo "Start slidev..."
-    npx slidev --remote
+# Check if there are any .md files
+count=`ls -1 *.md 2>/dev/null | wc -l`
+if [ $count != 0 ]; then
+    # True
+    echo "Found *.md file(s)"
 else
-    echo "slides.md not found in the bind mount to /slidev"
-    npm install @slidev/cli @slidev/theme-default @slidev/theme-seriph
-    cp -f /slidev/node_modules/@slidev/cli/template.md /slidev/slides.md
-    npx slidev --remote
+    # False
+    echo "*.md not found"
+    cp -f /usr/local/lib/node_modules/@slidev/cli/template.md $PWD/${MD_FILENAME}
+    chmod 777 ${MD_FILENAME}
 fi
+
+npx slidev --remote
