@@ -11,6 +11,8 @@ WORKDIR /tmp
 # RUN xargs npm install < ${NPM_DPDS}
 RUN npm install @slidev/cli @slidev/theme-default @slidev/theme-seriph
 
+# Clean up
+RUN npm cache clean --force
 
 WORKDIR /app
 
