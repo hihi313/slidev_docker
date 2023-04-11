@@ -9,14 +9,13 @@ WORKDIR /tmp
 
 # COPY ${NPM_DPDS} .
 # RUN xargs npm install < ${NPM_DPDS}
-RUN npm install @slidev/cli @slidev/theme-default @slidev/theme-seriph
+RUN npm install -g @slidev/cli @slidev/theme-default @slidev/theme-seriph
 
 # Clean up
 RUN npm cache clean --force
 
 WORKDIR /app
 
-COPY entrypoint.sh /
-ENTRYPOINT /entrypoint.sh
-
+COPY ./entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
 CMD bash

@@ -14,4 +14,4 @@ else
     chmod 777 ${MD_FILENAME}
 fi
 
-npx slidev --remote
+exec "$@"
